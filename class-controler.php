@@ -11,22 +11,22 @@ class remoteControl implements controler{
         $this->ligado = false;
         $this->tocando = false;
     }
-    function getVolume() {
+    private function getVolume() {
         return $this->volume;
     }
-    function getLigado(){
+    private function getLigado(){
         return $this->ligado;
     }
-    function getTocando() {
+    private function getTocando() {
         return $this->tocando;
     }
-    function setVolume($volume) {
+    private function setVolume($volume) {
         $this->volume = $volume;
     }
-    function setLigado ($ligado) {
+    private function setLigado ($ligado) {
         $this->ligado = $ligado;
     }
-    function setTocando($tocando) {
+    private function setTocando($tocando) {
         $this->tocando = $tocando; 
     }
     public function ligar(){
@@ -48,21 +48,33 @@ class remoteControl implements controler{
         echo "<br>Fechando Menu...";
     }
     public function maisVolume() {
-        
+        if($this->getLigado()) {
+            $this->setVolume($this->getVolume() + 5);
+        }
     }
     public function menosVolume() {
-
+        if($this->getLigado()) {
+            $this->setVolume($this->getVolume() - 5);
+        }
     }
     public function ligarMudo() {
-
+        if($this->getLigado() && $this->getVolume()> 0) {
+            $this->setVolume(0);
+        }
     }
     public function desligarMudo() {
-
+        if($this->getLigado() && $this->getVolume()== 0) {
+            $this->setVolume(50);
+        }
     }
     public function play() {
-
+        if($this->getLigado() && !($this->getTocando())) {
+            $this->setTocando(true);
+        }
     }
     public function pause() {
-
+        if($this->getLigado() && $this->getTocando()) {
+            $this->setTocando(false);
+        }
     }
 }
